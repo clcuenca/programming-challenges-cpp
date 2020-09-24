@@ -16,8 +16,28 @@ const int EXIT_SUCCESS = 0;
 
 int main(int argc, char* argv[]) {
 
+	/// -----------------
+	/// Program Variables
 
-	std::vector<std::vector<int>> matrix;
+	int maximum = 0;
+	int buffer  = 0;
+
+	std::cin >> maximum;
+
+	std::vector<std::vector<int>> matrix(maximum);
+
+	for(uint32_t index = 0; index < maximum; index++) {
+
+		for(uint32_t jindex = 0; jindex < maxmimum; jindex++) {
+
+			std::cin >> buffer;
+
+			matrix[index].push_back(buffer);
+
+		}
+
+
+	}
 
 
 
