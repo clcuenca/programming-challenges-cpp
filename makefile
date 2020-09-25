@@ -9,3 +9,4 @@ the_trip:
 
 clean:
 	rm TheTrip
+	rm 4367

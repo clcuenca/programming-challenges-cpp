@@ -9,7 +9,7 @@
 /// -----------------
 /// Program Constants
 
-const int EXIT_SUCCESS = 0;
+const int SUCCESS = 0;
 
 /// --------------
 /// Driver Program
@@ -19,29 +19,65 @@ int main(int argc, char* argv[]) {
 	/// -----------------
 	/// Program Variables
 
-	int maximum = 0;
-	int buffer  = 0;
+	uint32_t inputCount = 0;
+	uint32_t maximum    ;
+	int      buffer     ;
+	uint32_t firstSum   ;
+	uint32_t minimum    ;
 
-	std::cin >> maximum;
+	while(true) {
 
-	std::vector<std::vector<int>> matrix(maximum);
+		std::cin >> maximum;
 
-	for(uint32_t index = 0; index < maximum; index++) {
+		// Exit Condition
+		if(!maximum) break;
 
-		for(uint32_t jindex = 0; jindex < maxmimum; jindex++) {
+		buffer     = 0;
+		firstSum   = 0;
+		minimum    = 0;
+
+		inputCount++;
+
+		// We only need to keep track of the owe/owed
+		std::vector<int>owe(maximum);
+		std::vector<int>owed(maximum);
+
+		// Read in the matrix
+		for(uint32_t index = 0; index < maximum; index++)
+		for(uint32_t jindex = 0; jindex < maximum; jindex++) {
 
 			std::cin >> buffer;
 
-			matrix[index].push_back(buffer);
+			// Sum to the appropriate values
+			firstSum     += buffer;
+			owe[index]   += buffer;
+			owed[jindex] += buffer;
+
+			// If we're at the last line
+			if(index == (maximum - 1)) {
+
+				int difference = (owed[jindex] - owe[jindex]);
+
+				if(difference > 0) minimum += difference;
+
+				// Clear them out for later use
+				owe[jindex]  = 0;
+				owed[jindex] = 0;
+
+			}
 
 		}
 
+		/// ------
+		/// Print
+
+		std::cout << inputCount << ". " << firstSum << " " << minimum << std::endl;
 
 	}
 
+	/// ------
+	/// Finish
 
-
-	return EXIT_SUCCESS;
+	return SUCCESS;
 
 }
-
