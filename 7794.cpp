@@ -137,21 +137,34 @@ Count getOmissionCount(FactorList& factorList, Factor number, Factor maximum) {
    // This means the number is prime
     if(!factorList.size()) return maximum/number;
 
-    Count  result       = 0x00;
-    Index  alternating  = 0x00;
-    Index  index        = 0x00;
-    Factor factor       = 0x00;
+    Count  result       = 0;
+    Index  alternating  = 0;
+    Index  index        = 0;
+    Factor factor       = 0;
 
-    for(Index rolling_maximum = 0x00; rolling_maximum < factorList.size() ;){
+    for(Index rolling_maximum = 0; rolling_maximum < factorList.size() ;){
 
-        factor = 0x01;
+        factor = 1;
 
-        for(Index rolling = 0x00; rolling < rolling_maximum;) factor *= factorList[index + rolling++];
+        for(Index rolling = 0; rolling < rolling_maximum; rolling++) { 
 
-        if(alternating < factorList.size()) factor *= factorList[alternating++];
+        	factor *= factorList[index + rolling];
 
-        if(rolling_maximum%0x02) result -= ((maximum/factor));
-        else                     result += ((maximum/factor));
+        	//std::cout << factorList[index + rolling] << "*";
+
+        }
+
+        if(alternating < factorList.size()) { 
+
+
+        	//std::cout << factorList[alternating] << std::endl;
+
+        	factor *= factorList[alternating++];
+
+        }
+
+        if(rolling_maximum % 2) result -= ((maximum/factor));
+        else                    result += ((maximum/factor));
 
         if(alternating == factorList.size()){
 
@@ -167,7 +180,7 @@ Count getOmissionCount(FactorList& factorList, Factor number, Factor maximum) {
 
                 alternating = rolling_maximum;
 
-                index = 0x00;
+                index = 0;
 
             }
 

@@ -1,12 +1,16 @@
 COMPILER=g++
 CPPFLAGS=-Wall -g -pedantic -pedantic-errors -std=c++11
 
-the_trip:
-	$(COMPILER) $(CPPFLAGS) -o TheTrip TheTrip.cpp
+thetrip:
+	$(COMPILER) $(CPPFLAGS) -o thetrip thetrip.cpp
 
 4367:
 	$(COMPILER) $(CPPFLAGS) -o 4367 4367.cpp
 
+7794:
+	$(COMPILER) $(CPPFLAGS) -o 7794 7794.cpp
+
 clean:
-	rm TheTrip
+	rm thetrip
+	rm 7794
 	rm 4367
