@@ -1,3 +1,6 @@
+/// Programming Challenges
+/// Author: Carlos L. Cuenca
+/// Date: 10/2/2020
 
 #include<iostream>
 #include<cmath>
@@ -14,10 +17,10 @@ const float MAX_PRICE    = 10000.0f ;
 
 int main(int argc, char* argv[]) {
 
-	int 		studentCount   = 0    ;
-	float       sum 		   = 0.0f ;
-	float       average        = 0.0f ;
-	int         divisor 	   = 0    ;
+	int   studentCount = 0    ;
+	float sum 		   = 0.0f ;
+	float average      = 0.0f ;
+	int   divisor 	   = 0    ;
 
 	do {
 
