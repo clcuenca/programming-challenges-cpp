@@ -100,7 +100,8 @@ int main(int argc, char* argv[]) {
 					if(factor > 1) {
 					
 						if(rolling % 2) omission += (maximum / factor);
-						else 		  omission -= (maximum / factor);
+						else 		    omission -= (maximum / factor);
+						
 					}
 
 				}
