@@ -1,0 +1,92 @@
+    // Note to future me:
+    // This calculates a multiple from all given factors,
+    // seeing as we already omitted the houses at least once, we calculate a common factor
+    // and reduce the omission count by a quotient less than or equal to the amount given...
+    // Currently this is working with numbers that have 2 unique factors and only 2
+    // as well as being evenly divisible...
+    // This is supposed to cover the case where certain house omissions were accounted for more than once
+    // i.e. factors 2 & 3, with a max of 12 cause the above calculation to omit two more houses than necessary
+    // (6 and 12 were already accounted for)
+
+    // another note:
+    // the maximum number itself is accounted for as many times as there are unique factors.
+    // e.g. 3 unique factors means the maximum, n, has been counted 3 times. from the given range, there are a few
+    // numbers that reach a unique factor count of 4, 5, or 6 which throws off the statement after this for loop
+    // Find the expression that satisfies taking into account the maximum n only once
+
+    // Passes tests up to 419 (that I checked)... try below, or think of how many different factor combinations
+    // should be taken into account... as in list.size() - 1 factors multipled at the most.
+    // for example, for n = 30, 2*3, 2*5, 3*5 
+    // Each product is formed from 2 factors within a list of three unique factors
+    // for n = 210, 2*3, 2*5, 2*7, 3*5, 3*7, 5*7, 2*3*5, 2*3*7, 3*5*7, 2*3*5*7
+    // Since there should be some unique number in between the interval that aren't being omitted
+    // 2 3 5 7 11 2*3 2*5 2*7 2*11 3*5 3*7 3*11 5*7 5*11 7*11 
+    // CHECK YOUR ALTERNATING INDEX
+    // The alternating index is not calculating the last value before it changes to the max
+
+    // Numbers with 3 factors or less resolve with the right amount of omissions at the end
+    // Such as multiples of 30, 42, and 105. However, when reaching to 4 unique factors, i.e. 210 (first number with 4
+    // unique factors) the result is over 3 meaning the combinations of triple factors are undoing the amount.
+
+    /*Count result = 0x01 ;
+    Count buffer = 0x01 ;
+
+    for(Thief::Index index = 0x00; index < list.size(); index++){
+
+	result += maximum/list[index] - 0x01;
+
+	for(Thief::Index jindex = index + 1; jindex < list.size(); jindex++){
+
+	    buffer = list[index]*list[jindex];
+
+            result -= ((maximum/buffer) - 0x01);
+
+	    for(Thief::Index kindex = jindex + 1; kindex < list.size(); kindex++){
+
+		result += ((maximum/(buffer*list[kindex])  - 0x01);
+
+	    }
+
+	}
+
+    }*/
+
+// Brute Force Snippet
+template <typename List, typename Factor>
+List Thief::GetTotalCount(List& factors, Factor maximum){
+
+	uint64_t result  = 0x0;
+	uint64_t counter = 0x01;
+    	List values;
+
+	for(Thief::Index index = 0x0; index < factors.size(); index++){
+
+        	uint64_t buffer = factors[index];
+        	uint64_t counter = 0x01;
+
+        	while(factors[index]*counter <= maximum) if(factors[index]*counter <= maximum) values.push_back(factors[index]*counter++);
+
+    	}
+
+    	std::sort(values.begin(), values.end());
+
+	    //PrintList(values, values.size(), std::cout);
+
+    	List buffer;
+
+    	if(!values.size()) return buffer;
+
+    	buffer.push_back(values[0x00]);
+
+    	for(Thief::Index index = 0x01; index < values.size(); index++){
+
+        	if(values[index - 0x01] != values[index]) buffer.push_back(values[index]);
+
+    	}
+
+	//PrintList(buffer, buffer.size(), std::cout);
+
+	return buffer;
+
+
+}
