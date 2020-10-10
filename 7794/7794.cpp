@@ -38,21 +38,18 @@ int main(int argc, char* argv[]) {
 
 			uint64_t buffer = current;
 
-			std::vector<uint64_t> factorList ;
+			std::vector<uint64_t> factors;
 
-			if(buffer != 2) {
+			// We should only include one 2 if the number is greater than 2
+			// Since 2 is prime
+			if(!(buffer % 2) && buffer > 2) factors.push_back(2);
 
-				if(!(buffer % 2)) factorList.push_back(2);
+			while(!(buffer % 2)) buffer >>= 1;
 
-				// We want to make sure the number is not divisible by 2
-				while(!(buffer % 2)) buffer >>= 1; 
-
-			}
-
-			for(uint64_t factor = 3; factor <= std::sqrt(buffer); factor += 2) {
+			for(uint64_t factor = 3; std::pow(2, buffer - 1) % buffer != 1; factor += 2) {
 
 				// If there's a factor, add it to the list and reduce the number
-				if(!(buffer % factor) && buffer ^ factor) factorList.push_back(factor);
+				if(!(buffer % factor) && buffer ^ factor) factors.push_back(factor);
 
 				// Whittle the number down
 				while(!(buffer % factor)) buffer /= factor;
@@ -60,20 +57,20 @@ int main(int argc, char* argv[]) {
 			} 
 
 			// After Mangling the number, we make a final check to see if the prime number
-			// is greater than 2, not in the vector and not itself
-			if(buffer > 2 && current ^ buffer) factorList.push_back(buffer);
+			// is greater than 2 and not itself
+			if(buffer > 2 && current ^ buffer) factors.push_back(buffer);
 
 			uint64_t omission = 0;
 
 			// This means the number is prime
-			if(!factorList.size()) {
+			if(!factors.size()) {
 
 				omission = (maximum / current);
 
 			} else {
 
 				// Get the number of bits
-				bitMaximum = (1 << factorList.size()) - 1;
+				bitMaximum = (1 << factors.size()) - 1;
 
 				for(uint64_t index = 1; index <= bitMaximum; index++) {
 
@@ -86,7 +83,7 @@ int main(int argc, char* argv[]) {
 
 						if(number & 1) { 
 
-							factor *= factorList[jindex];
+							factor *= factors[jindex];
 							rolling++;
 
 						}
